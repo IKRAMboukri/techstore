@@ -34,6 +34,8 @@ function refreshProducts() {
 
 // 🖥 RENDER
 function renderProducts() {
+  console.log('renderProducts appelé à', new Date().toLocaleTimeString());
+  
   refreshProducts();
   productList.innerHTML = '';
 
@@ -168,8 +170,37 @@ productForm.addEventListener('submit', e => {
   }
 });
 
-// 🔍 Recherche live
-searchInput.addEventListener('input', renderProducts);
+// 🔍 Recherche live - VERSION GARANTIE
+let searchTimeout = null;
+let lastSearchTime = 0;
+let renderCount = 0;
+
+searchInput.addEventListener('input', function() {
+  // 1. Vérifier si on est dans la section produits
+  const productsSection = document.getElementById('products');
+  if (!productsSection || productsSection.classList.contains('d-none')) {
+    return; // On n'est pas dans produits, on ne fait rien
+  }
+  
+  // 2. Annuler le timeout précédent
+  clearTimeout(searchTimeout);
+  
+  // 3. Déclencher après 500ms sans frappe (debounce)
+  searchTimeout = setTimeout(() => {
+    // 4. Vérifier le temps minimum entre les appels
+    const now = Date.now();
+    if (now - lastSearchTime < 300) {
+      return; // Trop rapide
+    }
+    
+    lastSearchTime = now;
+    renderCount++;
+    console.log(`Recherche #${renderCount}`);
+    
+    // 5. Appeler renderProducts
+    renderProducts();
+  }, 500); // Attend 500ms après la dernière frappe
+});
 
 // ▶ Chargement initial
 renderProducts();
