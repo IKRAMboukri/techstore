@@ -18,7 +18,7 @@ function showSection(id) {
   }
 }
 
-// 👉 mlli t7ell site, bayna dashboard
+
 document.addEventListener('DOMContentLoaded', () => {
   showSection('dashboard');
 });

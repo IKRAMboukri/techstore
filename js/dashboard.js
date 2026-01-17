@@ -35,16 +35,16 @@ function renderDashboard() {
   console.log(`Dashboard #${dashboardRenderCount} à ${new Date().toLocaleTimeString()}`);
   
   try {
-    // 📦 données
+    // données
     const products = load('products') || [];
     const categories = load('categories') || [];
 
-    // 🧹 produits valides
+    // produits valides
     const validProducts = products.filter(
       p => p && p.name && p.price
     );
 
-    // 🔢 KPIs
+    // KPIs
     const totalProducts = validProducts.length;
 
     const totalPrice = validProducts.reduce(
@@ -71,7 +71,7 @@ function renderDashboard() {
       ? Object.keys(categoryCounts).reduce((a, b) => categoryCounts[a] > categoryCounts[b] ? a : b)
       : "Aucune";
 
-    // 🧾 CARDS DASHBOARD MODERNES
+    // CARDS DASHBOARD MODERNES
     document.getElementById('kpi-container').innerHTML = `
       <div class="col-md-3">
         <div class="dashboard-card card-product">
@@ -126,7 +126,7 @@ function renderDashboard() {
       </div>
     `;
 
-    // 📊 CHART : prix par produit
+    // CHART : prix par produit
     const labels = validProducts.slice(0, 10).map(p => 
       p.name.length > 15 ? p.name.substring(0, 15) + '...' : p.name
     );

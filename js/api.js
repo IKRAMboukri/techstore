@@ -24,7 +24,7 @@ fetch('https://fakestoreapi.com/products')
       save('categories', apiCategories);
     }
 
-    // 🔄 إعادة عرض
+
     if (typeof renderProducts === "function") renderProducts();
     if (typeof renderCategories === "function") renderCategories();
     if (typeof renderCategoryOptions === "function") renderCategoryOptions();
